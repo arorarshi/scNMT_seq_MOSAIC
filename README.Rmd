@@ -5,123 +5,88 @@ output: github_document
 
 ```{r setup, include=FALSE}
 
-#load libraries and other utilities
-source("../MOSAIC.R")
-
-library(mclust)
+library(MOSAIC)
 library(pheatmap)
 library(RColorBrewer)
 library(genefilter)
 library(knitr)
+library(magrittr)
+library(utilar)
+library(kableExtra)
 
-knitr::opts_chunk$set(collapse=TRUE, fig.retina=2, fig.path = "README_figures/README-", echo=FALSE, message = FALSE)
+knitr::opts_chunk$set(message = FALSE, echo=FALSE, collapse=TRUE, fig.retina=2, fig.path = "README_figures/README-")
 
 ```
 
 ## Introduction
 We will be analyzing  [scNMT-seq](https://www.nature.com/articles/s41467-018-03149-4) study via MOSAIC to understand mouse gastrulation on their epigenome and transcriptome profiles to identify multi-omics signatures that characterize stage and lineage. 
 
-[MOSAIC](https://github.com/arorarshi/MOSAIC) or Multi-Omics Supervised Integrative Clustering is a response weighted clustering algorithm inspired by [survClust](https://github.com/arorarshi/survClust), to classify samples into clusters that are relevant to outcome of interest. 
+[MOSAIC](https://github.com/arorarshi/MOSAIC) or Multi-Omics Supervised Integrative Clustering is a response weighted clustering algorithm inspired by [survClust](https://github.com/arorarshi/survClust), to classify samples into clusters that are relevant to outcome of interest.^1^ 
 
-Each feature in a data type is weighed according to its association with binary or categorical outcome of interest, and a weighted distance matrix is computed[1]. This reduces the computation space considerably from sample x feature to sample x sample. Samples are then projected into a multi dimensional space preserving the distance between them, and clustered with k-means algorithm to obtain class labels corresponding to outcome.
+Each feature in a data type is weighed according to its association with binary or categorical outcome of interest, and a weighted distance matrix is computed ^2^. This reduces the computation space considerably from sample x feature to sample x sample. Samples are then projected into a multi dimensional space preserving the distance between them, and clustered with k-means algorithm to obtain class labels corresponding to outcome.
 
-## Preliminary Analysis 
+## Analysis 
 
-We ran MOSAIC for 10 rounds of 3-fold cross validation, with stage as outcome of interest over seven data type - RNA, met_CTCF, met_DHS, met_p300, acc_CTCF, acc_DHS, acc_p300, and integrating all of them, to mine features that are associated with stage. 
+```{r, echo=F, message=FALSE}
+
+lapply(c("data/stage.Rdata", "data/lineage.all.Rdata", "data/lineage.Rdata", "data/cv.stats.noimp.github.Rdata"),load,.GlobalEnv)
+```
+
+We ran MOSAIC for _50 rounds_ of _5-fold_ cross validation for _k=2-7_, with stage and lineage as outcome of interest over 13 data types - 
+ * RNA
+ * met_CTCF, met_DHS, met_p300, met_genebody, met_promoter, met_cgi
+ * acc_CTCF, acc_DHS, acc_p300, acc_genebody, acc_promoter, acc_cgi 
+
+and integrating all of them, to mine features that are associated with outcome of interest. 
 
 RNA data was standardized, whereas proportion data from other data types was first transformed by taking their folded square root before standardizing. 
 
-All the data was considered, including missing-ness, as MOSAIC can handle incomplete information among features and data types. 
+All the data was considered, including missing-ness, as MOSAIC can handle incomplete information among features and data types. If a data type had more than 5000 features, teh feature space was reduce to top 5000 most variable features.  
 
-We analyze MOSAIC obtained cross validated solutions over two metrics - adjustedRandIndex and Standardized Pooled Within Sum of Squares (SPWSS)
+Let's take a look at stage and lineage distribution. 
 
+```{r, echo=F}
+
+kable(get.summary(stage, 1, var.n="stage"), "html", caption="sample summary", row.names=TRUE )
+
+kable(my.table(stage, lineage.all), "html", caption="stage vs lineage", row.names=TRUE )
+
+```
+
+## Results 
+
+We analyze MOSAIC obtained cross validated solutions over two metrics - adjusted Mutual Information (AMI) and Standardized Pooled Within Sum of Squares (SPWSS)
+
+### Stage
 ```{r, fig.height=5, fig.width=11}
-load("../Supervised_iCluster/MOSAIC/stage.Rdata")
+all.rdata<-c("acc_DHS", "acc_p300", "acc_cgi", "acc_CTCF", "acc_promoter", "acc_genebody", "met_DHS", "met_p300", "met_cgi", "met_CTCF", "met_promoter", "met_genebody", "rna.mat", "integrated")
 
-plat = c("acc_DHS", "acc_CTCF", "acc_p300", "met_DHS", "met_CTCF", "met_p300", "rna.mat", "integ")
-plat.col = c("blue", "purple", "lightblue", "red", "darkred", "orange", "darkolivegreen", "black")
-
-get.stats<-function(cv.fit,truth, kk=c(2:7), cvr = 10){
-  
-  spwss = adjR = matrix(NA, nrow=cvr, ncol=length(kk))
-  for(i in 1:length(cv.fit)){
-    tt = cv.fit[[i]]
-    spwss[,i] = unlist(lapply(tt, function(x) x$cv.ss))
-    adjR[,i] = unlist(lapply(tt, function(x) adjustedRandIndex(x$cv.labels, truth[names(x$cv.labels)])))
-    
-  }
-  return(list(spwss = spwss, adjR=adjR))
-  
-}
+plat.col = c("blue", "purple", "lightblue","darkblue","cyan", "cadetblue", "red", "darkred", "orange","coral","hotpink","brown", "darkolivegreen","black")
 
 par(mfrow=c(1,2))
-for (i in 1:length(plat)){
-  load(paste0("../Supervised_iCluster/MOSAIC/",plat[i], "_cvfit.Rdata"))
-  tt = get.stats(cv.fit, stage)
- 
-  if(i==1){plot(x = c(2:7), y=apply(tt$adjR, 2, median), col=plat.col[i],type="o", xlab="k cluster", ylab="adjusted Rand Index", bty="l", lwd=1.5, ylim=c(0,0.5), cex.lab=1.5, cex.axis=1.2)}
+for (i in 1:length(all.rdata)){
+
+  if(i==1){plot(x = c(2:7), y=apply(cv.stats[[i]]$AMI, 2, median), col=plat.col[i],type="o", xlab="k cluster", ylab="adjusted MI", bty="l", lwd=1.5, ylim=c(0,1), cex.lab=1.5, cex.axis=1.2)}
   
-  if(i!=1){lines(x = c(2:7), y=apply(tt$adjR, 2, median), col=plat.col[i], type="o",lwd=1.5)}
+  if(i!=1){lines(x = c(2:7), y=apply(cv.stats[[i]]$AMI, 2, median), col=plat.col[i], type="o",lwd=1.5)}
   
 }
 
-legend("topright", plat, col=plat.col, bty="n", lty=1, lwd = 2,ncol = 3)
+legend("topright", all.rdata, col=plat.col, bty="n", lty=1, lwd = 2,ncol = 2, cex=0.9)
 
-for (i in 1:length(plat)){
-  load(paste0("../Supervised_iCluster/MOSAIC/",plat[i], "_cvfit.Rdata"))
-  tt = get.stats(cv.fit, stage)
- 
-  if(i==1){plot(x = c(2:7), y=apply(tt$spwss, 2, median), col=plat.col[i],type="o", xlab="k cluster", ylab="SPWSS", bty="l", lwd=1.5, cex.lab=1.5, cex.axis=1.2, ylim=c(0,1))}
+for (i in 1:length(all.rdata)){
+
+  if(i==1){plot(x = c(2:7), y=apply(cv.stats[[i]]$spwss, 2, median), col=plat.col[i],type="o", xlab="k cluster", ylab="SPWSS", bty="l", lwd=1.5, ylim=c(0,1), cex.lab=1.5, cex.axis=1.2)}
   
-  if(i!=1){lines(x = c(2:7), y=apply(tt$spwss, 2, median), col=plat.col[i], type="o",lwd=1.5)}
+  if(i!=1){lines(x = c(2:7), y=apply(cv.stats[[i]]$spwss, 2, median), col=plat.col[i], type="o",lwd=1.5)}
   
 }
 
 ```
 
-We see that RNA expression predicts stage the best, at k=4 with maximum adjusted Rand Index, followed by integration and met_CTCF. 
 
-let's take a look at RNA, k=4 solution. 
+## References
 
-```{r}
+1. Arora A, Olshen AB, Seshan VE, and Shen R. Pan-cancer identification of clinically relevant genomic subtypes using outcome-weighted integrative clustering. Biorxiv
 
-load("../Supervised_iCluster/MOSAIC/rna.mat_cvfit.Rdata")
-load("../Supervised_iCluster/MOSAIC/rna.mat.dd.Rdata")
-rnak4 = cv.voting(cv.fit, rna.mat.dd,4)
-kable(table(rnak4[names(stage)], stage), "html", row.names=T, caption="MOSAIC RNA 4-class vs stage")
-nf=50
-load("../Supervised_iCluster/MOSAIC/rna.mat.Rdata")
-mat = rna.mat[names(rnak4), ]
-f=rowFtests(t(mat),fac=as.factor(rnak4))$p.value
-adj.P.Val=p.adjust(f)
-if(is.null(nf)){nf=2000}
-imagedata=mat[,order(adj.P.Val)[1:nf]]
-
-imagedata[imagedata < -3] = -3
-imagedata[imagedata > 3] = 3
-
-Colors=rev(brewer.pal(11,"Spectral"))
-Colors=colorRampPalette(Colors)(100)
-oo = order(rnak4)
-
-soln.col = brewer.pal(length(unique(rnak4)), "Dark2")
-ann_colors = list(cluster = c("1"= soln.col[1],"2" =soln.col[2], "3" = soln.col[3], "4" = soln.col[4]))
-cluster = rnak4[oo]
-aa = data.frame(cluster)
-
-pheatmap(t(imagedata[oo,]),scale='none',annotation_col=aa, annotation_colors=ann_colors, show_colnames=F, border_color =NA, fontsize_row = 8, cluster_cols=F,main = "MOSAIC 4-class RNA, top 50 features", color = Colors)
-
-```
-
-
-
-## Future Work
-
-* Study the various MOSAIC solutions of different platforms. 
-* Can integrated perform better? 
-* Take into account other data types like `cgi`, `promoter` and `genebody`
-* With lineage as outcome
-
-## Reference
-
-1. Xing, E. P., Jordan, M. I., Russell, S. J., & Ng, A. Y. (2003). Distance metric learning with application to clustering with side-information. In Advances in neural information processing systems (pp. 521-528).
+2. Xing, E. P., Jordan, M. I., Russell, S. J., & Ng, A. Y. (2003). Distance metric learning with application to clustering with side-information. In Advances in neural information processing systems (pp. 521-528).
