@@ -13,6 +13,8 @@ library(knitr)
 library(magrittr)
 library(utilar)
 library(kableExtra)
+library(ggsci)
+library(aricode)
 
 knitr::opts_chunk$set(message = FALSE, echo=FALSE, collapse=TRUE, fig.retina=2, fig.path = "README_figures/README-")
 
@@ -27,12 +29,13 @@ Each feature in a data type is weighed according to its association with binary 
 
 ## Analysis 
 
-```{r, echo=F, message=FALSE}
+```{r, echo=F, message=FALSE, results='hide'}
 
 lapply(c("data/stage.Rdata", "data/lineage.all.Rdata", "data/lineage.Rdata", "data/cv.stats.noimp.github.Rdata"),load,.GlobalEnv)
 ```
 
-We ran MOSAIC for _50 rounds_ of _5-fold_ cross validation for _k=2-7_, with stage and lineage as outcome of interest over 13 data types - 
+We ran MOSAIC for __50 rounds__ of __5-fold__ cross validation for __k=2-7__, with stage and lineage as outcome of interest over 13 data types -
+
  * RNA
  * met_CTCF, met_DHS, met_p300, met_genebody, met_promoter, met_cgi
  * acc_CTCF, acc_DHS, acc_p300, acc_genebody, acc_promoter, acc_cgi 
@@ -41,7 +44,7 @@ and integrating all of them, to mine features that are associated with outcome o
 
 RNA data was standardized, whereas proportion data from other data types was first transformed by taking their folded square root before standardizing. 
 
-All the data was considered, including missing-ness, as MOSAIC can handle incomplete information among features and data types. If a data type had more than 5000 features, teh feature space was reduce to top 5000 most variable features.  
+All the data was considered, including missing-ness, as MOSAIC can handle incomplete information among features and data types. If a data type had more than 5000 features, the feature space was reduce to top 5000 most variable features.  
 
 Let's take a look at stage and lineage distribution. 
 
@@ -49,7 +52,7 @@ Let's take a look at stage and lineage distribution.
 
 kable(get.summary(stage, 1, var.n="stage"), "html", caption="sample summary", row.names=TRUE )
 
-kable(my.table(stage, lineage.all), "html", caption="stage vs lineage", row.names=TRUE )
+kable(table(stage[names(lineage.all)], lineage.all), "html", caption="stage vs lineage", row.names=TRUE )
 
 ```
 
@@ -84,6 +87,150 @@ for (i in 1:length(all.rdata)){
 
 ```
 
+#### Let's take a look at RNA MOSAIC solution
+
+```{r, fig.height=8}
+
+lineage.nona = na.omit(lineage.all)
+lineage.col = brewer.pal(length(unique(lineage.all)), "Set3")
+names(lineage.col) = names(table(na.omit(lineage.all)))
+           
+stage.col = brewer.pal(length(unique(stage)), "PuBuGn")
+names(stage.col) = names(table(na.omit(stage)))
+ann_colors = list(stage = stage.col, lineage = lineage.col)
+  
+lineage.all = lineage.all[names(stage)]
+aa=data.frame(stage = stage, lineage=lineage.all)
+rownames(aa) = names(stage)
+
+cl.col = pal_nejm("default")(7)
+
+load("data/rna.mat.Rdata")
+load("data/solnk.noimp.github.Rdata")
+kk = solnk[[13]] 
+kk = kk[order(as.numeric(kk))]
+kk = factor(kk, levels=c("1","2","3","4","5"))
+mat = t(rna.mat[names(kk),])
+fp = rowFtests(mat, as.factor(kk))$p.value
+names(fp) = rownames(mat)
+fp.adj = p.adjust(fp)
+fsig = fp.adj[which(fp.adj < 0.05)]
+fsig.rna = fsig[1:1000]
+fsig = sort(fsig)[1:500]
+
+#top 500 features
+imagedata = mat[names(fsig),names(kk)]
+imagedata[imagedata < -2] = -2
+imagedata[imagedata > 2] = 2
+
+xaa = aa[names(kk),]
+xaa$cluster=kk
+
+kk.col = cl.col[1:length(unique(kk))]
+names(kk.col) = as.character(unique(kk))
+xann_colors = ann_colors; xann_colors$cluster = kk.col
+
+pheatmap(imagedata, clustering_method ="ward.D",scale='none',annotation_col=xaa, annotation_colors=xann_colors, cluster_cols = FALSE,show_colnames=F,show_rownames = FALSE, border_color =NA, fontsize_row = 8,main = "RNA 5-class MOSAIC vs stage, top500", color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdBu")))(100))
+
+kkAMIstage = AMI(kk, stage[names(kk)])
+kable(table(kk, stage[names(kk)]), "html", caption=paste0("MOSAIC rna vs stage, AMI= ",round(kkAMIstage,2)), row.names=TRUE )
+
+kkAMIlin = AMI(kk[names(lineage.nona)], as.character(lineage.nona))
+
+kable(table(kk, lineage.all[names(kk)]), "html", caption=paste0("MOSAIC rna vs lineage, AMI=",round(kkAMIlin,2)), row.names=TRUE )
+
+```
+
+__Let us take a look at some analysis with kmeans__
+
+```{r}
+
+set.seed(123)
+unwt.dd<-as.matrix(dist(rna.mat))
+cmd.mat = cmdscale(unwt.dd, nrow(unwt.dd)-1)
+unwtkk = kmeans(cmd.mat, 5, nstart=100)
+unwtkkAMI = AMI(unwtkk$cluster, stage)
+
+unwtkkAMIstage = AMI(unwtkk$cluster, stage[names(unwtkk$cluster)])
+kable(table(unwtkk$cluster, stage[names(unwtkk$cluster)]), "html", caption=paste0("kmeans rna vs stage, AMI= ",round(unwtkkAMIstage,2)), row.names=TRUE )
+
+unwtkkAMIlin = AMI(unwtkk$cluster[names(lineage.nona)], as.character(lineage.nona))
+
+kable(table(unwtkk$cluster, lineage.all[names(unwtkk$cluster)]), "html", caption=paste0("kmeans rna vs lineage, AMI=",round(unwtkkAMIlin,2)), row.names=TRUE )
+
+
+```
+
+#### Other MOSAIC solutions
+Make a _circomap_ of remaining subtypes, and stage and lineage classification 
+
+```{r, fig.height=8, fig.width=8}
+
+library(panelmap)
+names(solnk) = all.rdata
+solnk.AMI = round(unlist(lapply(solnk, function(x) AMI(x, stage[names(x)]))),2)
+
+tsolnk = solnk[1:12]
+names.circo = paste0(names(solnk),";AMI=", solnk.AMI)
+
+circo.dat<-list()
+for(i in 1:length(solnk)){
+  
+  cl = solnk[[i]][order(as.numeric(solnk[[i]]))]
+  stage.cl = stage[names(cl)]
+  lineage.cl = lineage.all[names(cl)]
+  
+  tt = cbind(cl, stage.cl, lineage.cl)
+  
+  circo.dat[[i]] = tt  
+  
+}
+
+names(circo.dat) = names.circo
+gtoplot<-c("cl")
+gcol = cl.col
+gheight = 0.10
+
+ftoplot<-c("stage.cl","lineage.cl")
+ftype= c(1,1)
+fcol=list(stage.cl = stage.col, lineage.cl= lineage.col)
+
+fheight<-list(); fheight[1:length(ftoplot)] = 0.10
+#Voila!!
+
+circomap(circo.dat[1:6], gtoplot, gcol, gheight, ftoplot, ftype, fcol, fheight, NA.flag=TRUE)
+circomap(circo.dat[7:12], gtoplot, gcol, gheight, ftoplot, ftype, fcol, fheight, NA.flag=TRUE)
+
+```
+
+### Integrated solution
+
+```{r}
+
+kk=solnk[[14]]
+kkAMIstage = AMI(kk, stage[names(kk)])
+kable(table(kk, stage[names(kk)]), "html", caption=paste0("integrated vs stage, AMI= ",round(kkAMIstage,2)), row.names=TRUE )
+
+kkAMIlin = AMI(kk[names(lineage.nona)], as.character(lineage.nona))
+
+kable(table(kk, lineage.all[names(kk)]), "html", caption=paste0("integrated vs lineage, AMI=",round(kkAMIlin,2)), row.names=TRUE )
+
+rnakk = solnk[[13]]
+kkAMIrnakk = AMI(kk, rnakk[names(kk)])
+
+kable(table(kk, rnakk[names(kk)]), "html", caption=paste0("integrated vs rna, AMI=",round(kkAMIrnakk,2)), row.names=TRUE )
+
+```
+
+## Conclusion
+
+* MOSAIC finds supervised clusters, with an outcome of interest in mind. Where kmeans might give mixed results. Supervised clustering is much more efficient and helps in sorting out different signals 
+
+* MOSAIC can run with missing data. However interpretations should be made carefully.
+ 
+* MOSAIC reduces computation space from sample x feature to sample x sample
+
+* Efficient in dealing with noisy features
 
 ## References
 

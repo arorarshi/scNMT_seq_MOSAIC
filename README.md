@@ -25,23 +25,15 @@ corresponding to outcome.
 
 ## Analysis
 
-    ## [[1]]
-    ## [1] "stage"
-    ## 
-    ## [[2]]
-    ## [1] "lineage.all"
-    ## 
-    ## [[3]]
-    ## [1] "lineage"
-    ## 
-    ## [[4]]
-    ## [1] "cv.stats"
+We ran MOSAIC for **50 rounds** of **5-fold** cross validation for
+**k=2-7**, with stage and lineage as outcome of interest over 13 data
+types -
 
-We ran MOSAIC for *50 rounds* of *5-fold* cross validation for *k=2-7*,
-with stage and lineage as outcome of interest over 13 data types - \*
-RNA \* met\_CTCF, met\_DHS, met\_p300, met\_genebody, met\_promoter,
-met\_cgi \* acc\_CTCF, acc\_DHS, acc\_p300, acc\_genebody,
-acc\_promoter, acc\_cgi
+  - RNA
+  - met\_CTCF, met\_DHS, met\_p300, met\_genebody, met\_promoter,
+    met\_cgi
+  - acc\_CTCF, acc\_DHS, acc\_p300, acc\_genebody, acc\_promoter,
+    acc\_cgi
 
 and integrating all of them, to mine features that are associated with
 outcome of interest.
@@ -52,7 +44,7 @@ standardizing.
 
 All the data was considered, including missing-ness, as MOSAIC can
 handle incomplete information among features and data types. If a data
-type had more than 5000 features, teh feature space was reduce to top
+type had more than 5000 features, the feature space was reduce to top
 5000 most variable features.
 
 Let’s take a look at stage and lineage distribution.
@@ -135,19 +127,6 @@ E7.5
 
 </table>
 
-    ##       y
-    ## x      Ectoderm Endoderm Epiblast ExE_ectoderm Mesoderm Primitive_endoderm
-    ##   E4.5        0        0       60            0        0                 43
-    ##   E5.5        0        0       84            0        0                  0
-    ##   E6.5        0        0      146            8       28                  0
-    ##   E7.5       43       81       44            0      141                  0
-    ##       y
-    ## x      Primitive_Streak Visceral_endoderm <NA>
-    ##   E4.5                0                 0    1
-    ##   E5.5                0                24    0
-    ##   E6.5               43                45    1
-    ##   E7.5               33                 0    1
-
 <table>
 
 <caption>
@@ -209,12 +188,6 @@ Primitive\_Streak
 <th style="text-align:right;">
 
 Visceral\_endoderm
-
-</th>
-
-<th style="text-align:right;">
-
-NA
 
 </th>
 
@@ -280,12 +253,6 @@ E4.5
 
 </td>
 
-<td style="text-align:right;">
-
-1
-
-</td>
-
 </tr>
 
 <tr>
@@ -341,12 +308,6 @@ E5.5
 <td style="text-align:right;">
 
 24
-
-</td>
-
-<td style="text-align:right;">
-
-0
 
 </td>
 
@@ -408,12 +369,6 @@ E6.5
 
 </td>
 
-<td style="text-align:right;">
-
-1
-
-</td>
-
 </tr>
 
 <tr>
@@ -472,12 +427,6 @@ E7.5
 
 </td>
 
-<td style="text-align:right;">
-
-1
-
-</td>
-
 </tr>
 
 </tbody>
@@ -493,6 +442,1911 @@ Squares (SPWSS)
 ### Stage
 
 <img src="README_figures/README-unnamed-chunk-3-1.png" width="1056" />
+
+#### Let’s take a look at RNA MOSAIC solution
+
+<img src="README_figures/README-unnamed-chunk-4-1.png" width="672" />
+
+<table>
+
+<caption>
+
+MOSAIC rna vs stage, AMI= 0.55
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+E4.5
+
+</th>
+
+<th style="text-align:right;">
+
+E5.5
+
+</th>
+
+<th style="text-align:right;">
+
+E6.5
+
+</th>
+
+<th style="text-align:right;">
+
+E7.5
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+24
+
+</td>
+
+<td style="text-align:right;">
+
+45
+
+</td>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+187
+
+</td>
+
+<td style="text-align:right;">
+
+100
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+104
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+31
+
+</td>
+
+<td style="text-align:right;">
+
+237
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+84
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
+
+MOSAIC rna vs lineage, AMI=0.57
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+Ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Epiblast
+
+</th>
+
+<th style="text-align:right;">
+
+ExE\_ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Mesoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_Streak
+
+</th>
+
+<th style="text-align:right;">
+
+Visceral\_endoderm
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+69
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+43
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+190
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+50
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+60
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+43
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+75
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+167
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+26
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+84
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+**Let us take a look at some analysis with kmeans**
+
+<table>
+
+<caption>
+
+kmeans rna vs stage, AMI= 0.34
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+E4.5
+
+</th>
+
+<th style="text-align:right;">
+
+E5.5
+
+</th>
+
+<th style="text-align:right;">
+
+E6.5
+
+</th>
+
+<th style="text-align:right;">
+
+E7.5
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+7
+
+</td>
+
+<td style="text-align:right;">
+
+74
+
+</td>
+
+<td style="text-align:right;">
+
+20
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+43
+
+</td>
+
+<td style="text-align:right;">
+
+24
+
+</td>
+
+<td style="text-align:right;">
+
+42
+
+</td>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+30
+
+</td>
+
+<td style="text-align:right;">
+
+228
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+58
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+77
+
+</td>
+
+<td style="text-align:right;">
+
+125
+
+</td>
+
+<td style="text-align:right;">
+
+89
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
+
+kmeans rna vs lineage, AMI=0.51
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+Ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Epiblast
+
+</th>
+
+<th style="text-align:right;">
+
+ExE\_ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Mesoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_Streak
+
+</th>
+
+<th style="text-align:right;">
+
+Visceral\_endoderm
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+59
+
+</td>
+
+<td style="text-align:right;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+12
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+20
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+42
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+66
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+72
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+157
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+28
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+57
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+42
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+218
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+28
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+#### Other MOSAIC solutions
+
+Make a *circomap* of remaining subtypes, and stage and lineage
+classification
+
+<img src="README_figures/README-unnamed-chunk-6-1.png" width="768" /><img src="README_figures/README-unnamed-chunk-6-2.png" width="768" />
+
+### Integrated solution
+
+<table>
+
+<caption>
+
+integrated vs stage, AMI= 0.53
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+E4.5
+
+</th>
+
+<th style="text-align:right;">
+
+E5.5
+
+</th>
+
+<th style="text-align:right;">
+
+E6.5
+
+</th>
+
+<th style="text-align:right;">
+
+E7.5
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+211
+
+</td>
+
+<td style="text-align:right;">
+
+337
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+83
+
+</td>
+
+<td style="text-align:right;">
+
+7
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+22
+
+</td>
+
+<td style="text-align:right;">
+
+52
+
+</td>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+103
+
+</td>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
+
+integrated vs lineage, AMI=0.33
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+Ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Epiblast
+
+</th>
+
+<th style="text-align:right;">
+
+ExE\_ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Mesoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_Streak
+
+</th>
+
+<th style="text-align:right;">
+
+Visceral\_endoderm
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+43
+
+</td>
+
+<td style="text-align:right;">
+
+75
+
+</td>
+
+<td style="text-align:right;">
+
+185
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+169
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+75
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+89
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+66
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+60
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+43
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
+
+integrated vs rna, AMI=0.62
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+1
+
+</th>
+
+<th style="text-align:right;">
+
+2
+
+</th>
+
+<th style="text-align:right;">
+
+3
+
+</th>
+
+<th style="text-align:right;">
+
+4
+
+</th>
+
+<th style="text-align:right;">
+
+5
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+280
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+268
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+7
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+83
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+72
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+103
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+## Conclusion
+
+  - MOSAIC finds supervised clusters, with an outcome of interest in
+    mind. Where kmeans might give mixed results. Supervised clustering
+    is much more efficient and helps in sorting out different signals
+
+  - MOSAIC can run with missing data. However interpretations should be
+    made carefully.
+
+  - MOSAIC reduces computation space from sample x feature to sample x
+    sample
+
+  - Efficient in dealing with noisy features
 
 ## References
 
