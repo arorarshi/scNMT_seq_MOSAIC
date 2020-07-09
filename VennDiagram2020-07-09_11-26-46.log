@@ -1,0 +1,13 @@
+INFO [2020-07-09 11:26:46] $x
+INFO [2020-07-09 11:26:46] list(names(fsig.rna), names(fsig.met.prom))
+INFO [2020-07-09 11:26:46] 
+INFO [2020-07-09 11:26:46] $filename
+INFO [2020-07-09 11:26:46] NULL
+INFO [2020-07-09 11:26:46] 
+INFO [2020-07-09 11:26:46] $category.names
+INFO [2020-07-09 11:26:46] c("RNA", "MetPromoter")
+INFO [2020-07-09 11:26:46] 
+INFO [2020-07-09 11:26:46] $fill
+INFO [2020-07-09 11:26:46] myCol
+INFO [2020-07-09 11:26:46] 
+ERROR [2020-07-09 11:26:46] Unexpected parameter length for 'fill'

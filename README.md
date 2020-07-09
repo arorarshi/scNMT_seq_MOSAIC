@@ -49,6 +49,9 @@ type had more than 5000 features, the feature space was reduce to top
 
 Let’s take a look at stage and lineage distribution.
 
+We removed samples belonging to Visceral Endoderms, see lineage table
+below
+
 <table>
 
 <caption>
@@ -69,7 +72,7 @@ stage=E4.5
 
 <td style="text-align:left;">
 
-104(12.59%)
+103(13.66%)
 
 </td>
 
@@ -85,7 +88,7 @@ E5.5
 
 <td style="text-align:left;">
 
-108(13.08%)
+84(11.14%)
 
 </td>
 
@@ -101,7 +104,7 @@ E6.5
 
 <td style="text-align:left;">
 
-271(32.81%)
+225(29.84%)
 
 </td>
 
@@ -117,7 +120,7 @@ E7.5
 
 <td style="text-align:left;">
 
-343(41.53%)
+342(45.36%)
 
 </td>
 
@@ -185,12 +188,6 @@ Primitive\_Streak
 
 </th>
 
-<th style="text-align:right;">
-
-Visceral\_endoderm
-
-</th>
-
 </tr>
 
 </thead>
@@ -238,12 +235,6 @@ E4.5
 <td style="text-align:right;">
 
 43
-
-</td>
-
-<td style="text-align:right;">
-
-0
 
 </td>
 
@@ -302,12 +293,6 @@ E5.5
 <td style="text-align:right;">
 
 0
-
-</td>
-
-<td style="text-align:right;">
-
-24
 
 </td>
 
@@ -363,12 +348,6 @@ E6.5
 
 </td>
 
-<td style="text-align:right;">
-
-45
-
-</td>
-
 </tr>
 
 <tr>
@@ -421,12 +400,6 @@ E7.5
 
 </td>
 
-<td style="text-align:right;">
-
-0
-
-</td>
-
 </tr>
 
 </tbody>
@@ -443,6 +416,13 @@ Squares (SPWSS)
 
 <img src="README_figures/README-unnamed-chunk-3-1.png" width="1056" />
 
+  - RNA and Met promoter paltforms track close to each other, and are
+    also on top of rest of the platforms in terms of been informative
+    towards stage.
+
+  - acc platforms are not as informative of stage, acc\_DHS seemed to be
+    doing the best with AMI = 0.30. See circomaps below.
+
 #### Let’s take a look at RNA MOSAIC solution
 
 <img src="README_figures/README-unnamed-chunk-4-1.png" width="672" />
@@ -451,7 +431,7 @@ Squares (SPWSS)
 
 <caption>
 
-MOSAIC rna vs stage, AMI= 0.55
+MOSAIC rna vs stage, AMI= 0.59
 
 </caption>
 
@@ -503,25 +483,25 @@ E7.5
 
 <td style="text-align:right;">
 
+44
+
+</td>
+
+<td style="text-align:right;">
+
 0
 
 </td>
 
 <td style="text-align:right;">
 
-24
+0
 
 </td>
 
 <td style="text-align:right;">
 
-45
-
-</td>
-
-<td style="text-align:right;">
-
-6
+2
 
 </td>
 
@@ -543,19 +523,19 @@ E7.5
 
 <td style="text-align:right;">
 
+83
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+<td style="text-align:right;">
+
 0
-
-</td>
-
-<td style="text-align:right;">
-
-187
-
-</td>
-
-<td style="text-align:right;">
-
-100
 
 </td>
 
@@ -566,40 +546,6 @@ E7.5
 <td style="text-align:left;">
 
 3
-
-</td>
-
-<td style="text-align:right;">
-
-104
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-4
 
 </td>
 
@@ -623,7 +569,41 @@ E7.5
 
 <td style="text-align:right;">
 
-237
+238
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+59
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
 
 </td>
 
@@ -645,19 +625,19 @@ E7.5
 
 <td style="text-align:right;">
 
-84
+1
 
 </td>
 
 <td style="text-align:right;">
 
-8
+186
 
 </td>
 
 <td style="text-align:right;">
 
-0
+102
 
 </td>
 
@@ -671,7 +651,7 @@ E7.5
 
 <caption>
 
-MOSAIC rna vs lineage, AMI=0.57
+MOSAIC rna vs lineage, AMI=0.54
 
 </caption>
 
@@ -725,12 +705,6 @@ Primitive\_Streak
 
 </th>
 
-<th style="text-align:right;">
-
-Visceral\_endoderm
-
-</th>
-
 </tr>
 
 </thead>
@@ -753,53 +727,25 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-6
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-69
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
 2
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
 
 </td>
 
@@ -815,19 +761,11 @@ Visceral\_endoderm
 
 </td>
 
-<td style="text-align:right;">
+</tr>
 
-190
+<tr>
 
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
+<td style="text-align:left;">
 
 2
 
@@ -841,7 +779,31 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-50
+0
+
+</td>
+
+<td style="text-align:right;">
+
+83
+
+</td>
+
+<td style="text-align:right;">
+
+8
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
 
 </td>
 
@@ -869,65 +831,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-60
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-43
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-4
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-75
+79
 
 </td>
 
@@ -957,7 +861,53 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-26
+23
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+59
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
 
 </td>
 
@@ -979,7 +929,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-0
+43
 
 </td>
 
@@ -991,13 +941,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-84
-
-</td>
-
-<td style="text-align:right;">
-
-8
+191
 
 </td>
 
@@ -1009,7 +953,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-0
+2
 
 </td>
 
@@ -1021,7 +965,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-0
+53
 
 </td>
 
@@ -1037,7 +981,7 @@ Visceral\_endoderm
 
 <caption>
 
-kmeans rna vs stage, AMI= 0.34
+kmeans rna vs stage, AMI= 0.42
 
 </caption>
 
@@ -1089,25 +1033,25 @@ E7.5
 
 <td style="text-align:right;">
 
-3
+44
 
 </td>
 
 <td style="text-align:right;">
 
-7
+0
 
 </td>
 
 <td style="text-align:right;">
 
-74
+0
 
 </td>
 
 <td style="text-align:right;">
 
-20
+2
 
 </td>
 
@@ -1123,25 +1067,25 @@ E7.5
 
 <td style="text-align:right;">
 
-43
+0
 
 </td>
 
 <td style="text-align:right;">
 
-24
+76
 
 </td>
 
 <td style="text-align:right;">
 
-42
+124
 
 </td>
 
 <td style="text-align:right;">
 
-6
+89
 
 </td>
 
@@ -1157,25 +1101,25 @@ E7.5
 
 <td style="text-align:right;">
 
-0
+3
 
 </td>
 
 <td style="text-align:right;">
 
-0
+8
 
 </td>
 
 <td style="text-align:right;">
 
-30
+71
 
 </td>
 
 <td style="text-align:right;">
 
-228
+20
 
 </td>
 
@@ -1191,7 +1135,7 @@ E7.5
 
 <td style="text-align:right;">
 
-58
+56
 
 </td>
 
@@ -1231,19 +1175,19 @@ E7.5
 
 <td style="text-align:right;">
 
-77
+0
 
 </td>
 
 <td style="text-align:right;">
 
-125
+30
 
 </td>
 
 <td style="text-align:right;">
 
-89
+231
 
 </td>
 
@@ -1257,7 +1201,7 @@ E7.5
 
 <caption>
 
-kmeans rna vs lineage, AMI=0.51
+kmeans rna vs lineage, AMI=0.49
 
 </caption>
 
@@ -1311,12 +1255,6 @@ Primitive\_Streak
 
 </th>
 
-<th style="text-align:right;">
-
-Visceral\_endoderm
-
-</th>
-
 </tr>
 
 </thead>
@@ -1328,6 +1266,110 @@ Visceral\_endoderm
 <td style="text-align:left;">
 
 1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+43
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+42
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+216
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+28
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
 
 </td>
 
@@ -1345,7 +1387,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-59
+61
 
 </td>
 
@@ -1373,9 +1415,55 @@ Visceral\_endoderm
 
 </td>
 
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
 <td style="text-align:right;">
 
-3
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+56
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
 
 </td>
 
@@ -1385,7 +1473,7 @@ Visceral\_endoderm
 
 <td style="text-align:left;">
 
-2
+5
 
 </td>
 
@@ -1397,65 +1485,7 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-6
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-42
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-66
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-3
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-72
+76
 
 </td>
 
@@ -1489,128 +1519,6 @@ Visceral\_endoderm
 
 </td>
 
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-4
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-57
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-1
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-5
-
-</td>
-
-<td style="text-align:right;">
-
-42
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-218
-
-</td>
-
-<td style="text-align:right;">
-
-3
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-28
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
 </tr>
 
 </tbody>
@@ -1622,15 +1530,22 @@ Visceral\_endoderm
 Make a *circomap* of remaining subtypes, and stage and lineage
 classification
 
-<img src="README_figures/README-unnamed-chunk-6-1.png" width="768" /><img src="README_figures/README-unnamed-chunk-6-2.png" width="768" />
+<img src="README_figures/README-unnamed-chunk-6-1.png" width="672" /><img src="README_figures/README-unnamed-chunk-6-2.png" width="672" />
 
 ### Integrated solution
+
+Will add 07/10
+
+### Met promoter vs RNA
+
+Let’s take a look at the two platforms, RNA and Met promoter that are
+most informative for stage.
 
 <table>
 
 <caption>
 
-integrated vs stage, AMI= 0.53
+Met promoter vs stage, AMI=0.53
 
 </caption>
 
@@ -1688,19 +1603,19 @@ E7.5
 
 <td style="text-align:right;">
 
-1
+0
 
 </td>
 
 <td style="text-align:right;">
 
-211
+29
 
 </td>
 
 <td style="text-align:right;">
 
-337
+208
 
 </td>
 
@@ -1722,19 +1637,19 @@ E7.5
 
 <td style="text-align:right;">
 
-83
+26
 
 </td>
 
 <td style="text-align:right;">
 
-7
+188
 
 </td>
 
 <td style="text-align:right;">
 
-0
+129
 
 </td>
 
@@ -1745,40 +1660,6 @@ E7.5
 <td style="text-align:left;">
 
 3
-
-</td>
-
-<td style="text-align:right;">
-
-1
-
-</td>
-
-<td style="text-align:right;">
-
-22
-
-</td>
-
-<td style="text-align:right;">
-
-52
-
-</td>
-
-<td style="text-align:right;">
-
-6
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-4
 
 </td>
 
@@ -1790,196 +1671,6 @@ E7.5
 
 <td style="text-align:right;">
 
-2
-
-</td>
-
-<td style="text-align:right;">
-
-1
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<table>
-
-<caption>
-
-integrated vs lineage, AMI=0.33
-
-</caption>
-
-<thead>
-
-<tr>
-
-<th style="text-align:left;">
-
-</th>
-
-<th style="text-align:right;">
-
-Ectoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Endoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Epiblast
-
-</th>
-
-<th style="text-align:right;">
-
-ExE\_ectoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Mesoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Primitive\_endoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Primitive\_Streak
-
-</th>
-
-<th style="text-align:right;">
-
-Visceral\_endoderm
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-1
-
-</td>
-
-<td style="text-align:right;">
-
-43
-
-</td>
-
-<td style="text-align:right;">
-
-75
-
-</td>
-
-<td style="text-align:right;">
-
-185
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-169
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-75
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-2
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-89
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
 0
 
 </td>
@@ -1993,64 +1684,6 @@ Visceral\_endoderm
 <td style="text-align:right;">
 
 0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-3
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-6
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-8
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-66
 
 </td>
 
@@ -2072,43 +1705,19 @@ Visceral\_endoderm
 
 <td style="text-align:right;">
 
-0
+58
 
 </td>
 
 <td style="text-align:right;">
 
-60
+7
 
 </td>
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-43
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-3
+5
 
 </td>
 
@@ -2118,11 +1727,13 @@ Visceral\_endoderm
 
 </table>
 
+Let’s see how this looks with RNA solution
+
 <table>
 
 <caption>
 
-integrated vs rna, AMI=0.62
+Met promoter vs RNA, AMI=0.45
 
 </caption>
 
@@ -2186,7 +1797,13 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
-280
+0
+
+</td>
+
+<td style="text-align:right;">
+
+140
 
 </td>
 
@@ -2198,13 +1815,7 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
-268
-
-</td>
-
-<td style="text-align:right;">
-
-1
+97
 
 </td>
 
@@ -2226,7 +1837,13 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
-7
+25
+
+</td>
+
+<td style="text-align:right;">
+
+126
 
 </td>
 
@@ -2238,13 +1855,7 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-83
+192
 
 </td>
 
@@ -2260,13 +1871,7 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
-72
-
-</td>
-
-<td style="text-align:right;">
-
-0
+44
 
 </td>
 
@@ -2284,7 +1889,13 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
-8
+59
+
+</td>
+
+<td style="text-align:right;">
+
+0
 
 </td>
 
@@ -2300,19 +1911,19 @@ integrated vs rna, AMI=0.62
 
 <td style="text-align:right;">
 
+2
+
+</td>
+
+<td style="text-align:right;">
+
+65
+
+</td>
+
+<td style="text-align:right;">
+
 3
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-103
 
 </td>
 
@@ -2333,6 +1944,14 @@ integrated vs rna, AMI=0.62
 </tbody>
 
 </table>
+
+Interesting to see that even though individual RNA MSOAIC solution (k=5)
+and Met promoter (k=4) are both informative towards stage with AMI 0.59
+and 0.53 respectively, they are conveying slightly different underlying
+information classifying stage. AMI RNA with Met promoter 0.45
+
+Note, that due to missing-ness in Met Promoter data, we didn’t perform
+an overlap between common features between RNA and Met Promoter .
 
 ## Conclusion
 

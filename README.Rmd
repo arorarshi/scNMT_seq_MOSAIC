@@ -15,6 +15,7 @@ library(utilar)
 library(kableExtra)
 library(ggsci)
 library(aricode)
+library(VennDiagram)
 
 knitr::opts_chunk$set(message = FALSE, echo=FALSE, collapse=TRUE, fig.retina=2, fig.path = "README_figures/README-")
 
@@ -31,7 +32,7 @@ Each feature in a data type is weighed according to its association with binary 
 
 ```{r, echo=F, message=FALSE, results='hide'}
 
-lapply(c("data/stage.Rdata", "data/lineage.all.Rdata", "data/lineage.Rdata", "data/cv.stats.noimp.github.Rdata"),load,.GlobalEnv)
+lapply(c("data/stage.rmVisceralEnd.Rdata", "data/lineage.all.Rdata", "data/lineage.Rdata","data/cv.stats.stage.noimp.rmViscEnd.Rdata"),load,.GlobalEnv)
 ```
 
 We ran MOSAIC for __50 rounds__ of __5-fold__ cross validation for __k=2-7__, with stage and lineage as outcome of interest over 13 data types -
@@ -48,11 +49,13 @@ All the data was considered, including missing-ness, as MOSAIC can handle incomp
 
 Let's take a look at stage and lineage distribution. 
 
+We removed samples belonging to Visceral Endoderms, see lineage table below 
+
 ```{r, echo=F}
 
 kable(get.summary(stage, 1, var.n="stage"), "html", caption="sample summary", row.names=TRUE )
 
-kable(table(stage[names(lineage.all)], lineage.all), "html", caption="stage vs lineage", row.names=TRUE )
+kable(table(stage, lineage.all[names(stage)]), "html", caption="stage vs lineage", row.names=TRUE )
 
 ```
 
@@ -62,9 +65,13 @@ We analyze MOSAIC obtained cross validated solutions over two metrics - adjusted
 
 ### Stage
 ```{r, fig.height=5, fig.width=11}
-all.rdata<-c("acc_DHS", "acc_p300", "acc_cgi", "acc_CTCF", "acc_promoter", "acc_genebody", "met_DHS", "met_p300", "met_cgi", "met_CTCF", "met_promoter", "met_genebody", "rna.mat", "integrated")
+#all.rdata<-c("acc_DHS", "acc_p300", "acc_cgi", "acc_CTCF", "acc_promoter", "acc_genebody", "met_DHS", "met_p300", "met_cgi", "met_CTCF", "met_promoter", "met_genebody", "rna.mat", "integrated")
 
-plat.col = c("blue", "purple", "lightblue","darkblue","cyan", "cadetblue", "red", "darkred", "orange","coral","hotpink","brown", "darkolivegreen","black")
+#plat.col = c("blue", "purple", "lightblue","darkblue","cyan", "cadetblue", "red", "darkred", "orange","coral","hotpink","brown", "darkolivegreen","black")
+
+all.rdata<-c("acc_DHS", "acc_p300", "acc_cgi", "acc_CTCF", "acc_promoter", "acc_genebody", "met_DHS", "met_p300", "met_cgi", "met_CTCF", "met_promoter", "met_genebody", "rna.mat")
+
+plat.col = c("blue", "purple", "lightblue","darkblue","cyan", "cadetblue", "red", "darkred", "orange","coral","hotpink","brown", "darkolivegreen")
 
 par(mfrow=c(1,2))
 for (i in 1:length(all.rdata)){
@@ -87,6 +94,10 @@ for (i in 1:length(all.rdata)){
 
 ```
 
+* RNA and Met promoter paltforms track close to each other, and are also on top of rest of the platforms in terms of been informative towards stage. 
+
+* acc platforms are not as informative of stage, acc_DHS seemed to be doing the best with AMI  = 0.30. See circomaps below. 
+
 #### Let's take a look at RNA MOSAIC solution
 
 ```{r, fig.height=8}
@@ -106,7 +117,7 @@ rownames(aa) = names(stage)
 cl.col = pal_nejm("default")(7)
 
 load("data/rna.mat.Rdata")
-load("data/solnk.noimp.github.Rdata")
+load("data/solnk.stage.noimp.rmViscEnd.Rdata")
 kk = solnk[[13]] 
 kk = kk[order(as.numeric(kk))]
 kk = factor(kk, levels=c("1","2","3","4","5"))
@@ -115,7 +126,7 @@ fp = rowFtests(mat, as.factor(kk))$p.value
 names(fp) = rownames(mat)
 fp.adj = p.adjust(fp)
 fsig = fp.adj[which(fp.adj < 0.05)]
-fsig.rna = fsig[1:1000]
+fsig.rna = fsig[1:2500]
 fsig = sort(fsig)[1:500]
 
 #top 500 features
@@ -134,8 +145,9 @@ pheatmap(imagedata, clustering_method ="ward.D",scale='none',annotation_col=xaa,
 
 kkAMIstage = AMI(kk, stage[names(kk)])
 kable(table(kk, stage[names(kk)]), "html", caption=paste0("MOSAIC rna vs stage, AMI= ",round(kkAMIstage,2)), row.names=TRUE )
+AMIrnakkstage = round(kkAMIstage,2)
 
-kkAMIlin = AMI(kk[names(lineage.nona)], as.character(lineage.nona))
+kkAMIlin = AMI(kk, as.character(lineage.nona[names(kk)]))
 
 kable(table(kk, lineage.all[names(kk)]), "html", caption=paste0("MOSAIC rna vs lineage, AMI=",round(kkAMIlin,2)), row.names=TRUE )
 
@@ -146,7 +158,7 @@ __Let us take a look at some analysis with kmeans__
 ```{r}
 
 set.seed(123)
-unwt.dd<-as.matrix(dist(rna.mat))
+unwt.dd<-as.matrix(dist(rna.mat[names(stage),]))
 cmd.mat = cmdscale(unwt.dd, nrow(unwt.dd)-1)
 unwtkk = kmeans(cmd.mat, 5, nstart=100)
 unwtkkAMI = AMI(unwtkk$cluster, stage)
@@ -154,7 +166,7 @@ unwtkkAMI = AMI(unwtkk$cluster, stage)
 unwtkkAMIstage = AMI(unwtkk$cluster, stage[names(unwtkk$cluster)])
 kable(table(unwtkk$cluster, stage[names(unwtkk$cluster)]), "html", caption=paste0("kmeans rna vs stage, AMI= ",round(unwtkkAMIstage,2)), row.names=TRUE )
 
-unwtkkAMIlin = AMI(unwtkk$cluster[names(lineage.nona)], as.character(lineage.nona))
+unwtkkAMIlin = AMI(unwtkk$cluster, as.character(lineage.nona[names(unwtkk$cluster)]))
 
 kable(table(unwtkk$cluster, lineage.all[names(unwtkk$cluster)]), "html", caption=paste0("kmeans rna vs lineage, AMI=",round(unwtkkAMIlin,2)), row.names=TRUE )
 
@@ -164,7 +176,7 @@ kable(table(unwtkk$cluster, lineage.all[names(unwtkk$cluster)]), "html", caption
 #### Other MOSAIC solutions
 Make a _circomap_ of remaining subtypes, and stage and lineage classification 
 
-```{r, fig.height=8, fig.width=8}
+```{r, fig.height=7, fig.width=7}
 
 library(panelmap)
 names(solnk) = all.rdata
@@ -205,7 +217,8 @@ circomap(circo.dat[7:12], gtoplot, gcol, gheight, ftoplot, ftype, fcol, fheight,
 
 ### Integrated solution
 
-```{r}
+Will add 07/10
+```{r, eval=F}
 
 kk=solnk[[14]]
 kkAMIstage = AMI(kk, stage[names(kk)])
@@ -221,6 +234,32 @@ kkAMIrnakk = AMI(kk, rnakk[names(kk)])
 kable(table(kk, rnakk[names(kk)]), "html", caption=paste0("integrated vs rna, AMI=",round(kkAMIrnakk,2)), row.names=TRUE )
 
 ```
+
+### Met promoter vs RNA
+
+Let's take a look at the two platforms, RNA and Met promoter that are most informative for stage. 
+
+```{r}
+rnakk = solnk[[13]]
+
+kkmetp = solnk[["met_promoter"]]
+kkAMImetpkk = round(AMI(kkmetp[names(stage)], stage),2)
+
+kable(table(kkmetp[names(stage)], stage), "html", caption=paste0("Met promoter vs stage, AMI=",kkAMImetpkk), row.names=TRUE )
+
+```
+Let's see how this looks with RNA solution 
+
+```{r}
+kkAMImetprna = round(AMI(kkmetp[names(rnakk)], rnakk),2)
+
+kable(table(kkmetp[names(rnakk)], rnakk), "html", caption=paste0("Met promoter vs RNA, AMI=",kkAMImetprna), row.names=TRUE )
+
+```
+
+Interesting to see that even though individual RNA MSOAIC solution (k=5) and Met promoter (k=4) are both informative towards stage with AMI `r AMIrnakkstage` and `r kkAMImetpkk` respectively, they are conveying slightly different underlying information classifying stage. AMI RNA with Met promoter `r kkAMImetprna`
+
+Note, that due to missing-ness in Met Promoter data, we didn't perform an overlap between common features between RNA and Met Promoter . 
 
 ## Conclusion
 
