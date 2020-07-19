@@ -1,9 +1,0 @@
-INFO [2020-07-09 11:27:18] $x
-INFO [2020-07-09 11:27:18] list(names(fsig.rna), names(fsig.met.prom))
-INFO [2020-07-09 11:27:18] 
-INFO [2020-07-09 11:27:18] $filename
-INFO [2020-07-09 11:27:18] NULL
-INFO [2020-07-09 11:27:18] 
-INFO [2020-07-09 11:27:18] $category.names
-INFO [2020-07-09 11:27:18] c("RNA", "MetPromoter")
-INFO [2020-07-09 11:27:18] 
