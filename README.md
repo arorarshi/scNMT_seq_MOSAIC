@@ -26,14 +26,11 @@ corresponding to outcome.
 ## Analysis
 
 We ran MOSAIC for **50 rounds** of **5-fold** cross validation for
-**k=2-7**, with stage and lineage as outcome of interest over 13 data
+**k=2-7**, with stage and lineage as outcome of interest over 5 data
 types -
 
   - RNA
-  - met\_CTCF, met\_DHS, met\_p300, met\_genebody, met\_promoter,
-    met\_cgi
-  - acc\_CTCF, acc\_DHS, acc\_p300, acc\_genebody, acc\_promoter,
-    acc\_cgi
+  - met\_DHS, met\_genebody, met\_promoter, met\_cgi
 
 and integrating all of them, to mine features that are associated with
 outcome of interest.
@@ -49,7 +46,7 @@ type had more than 5000 features, the feature space was reduce to top
 
 Let’s take a look at stage and lineage distribution.
 
-We removed samples belonging to Visceral Endoderms, see lineage table
+We removed samples belonging to Embryonic Lineage, see lineage table
 below
 
 <table>
@@ -72,7 +69,7 @@ stage=E4.5
 
 <td style="text-align:left;">
 
-103(13.66%)
+63(7.88%)
 
 </td>
 
@@ -88,7 +85,7 @@ E5.5
 
 <td style="text-align:left;">
 
-84(11.14%)
+86(10.76%)
 
 </td>
 
@@ -104,7 +101,7 @@ E6.5
 
 <td style="text-align:left;">
 
-225(29.84%)
+276(34.54%)
 
 </td>
 
@@ -120,7 +117,7 @@ E7.5
 
 <td style="text-align:left;">
 
-342(45.36%)
+374(46.81%)
 
 </td>
 
@@ -166,19 +163,7 @@ Epiblast
 
 <th style="text-align:right;">
 
-ExE\_ectoderm
-
-</th>
-
-<th style="text-align:right;">
-
 Mesoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Primitive\_endoderm
 
 </th>
 
@@ -216,25 +201,13 @@ E4.5
 
 <td style="text-align:right;">
 
-60
+62
 
 </td>
 
 <td style="text-align:right;">
 
 0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-43
 
 </td>
 
@@ -268,19 +241,7 @@ E5.5
 
 <td style="text-align:right;">
 
-84
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
+86
 
 </td>
 
@@ -320,31 +281,19 @@ E6.5
 
 <td style="text-align:right;">
 
-146
+187
 
 </td>
 
 <td style="text-align:right;">
 
-8
+39
 
 </td>
 
 <td style="text-align:right;">
 
-28
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-43
+49
 
 </td>
 
@@ -360,43 +309,31 @@ E7.5
 
 <td style="text-align:right;">
 
-43
+45
 
 </td>
 
 <td style="text-align:right;">
 
-81
+87
 
 </td>
 
 <td style="text-align:right;">
 
-44
+57
 
 </td>
 
 <td style="text-align:right;">
 
-0
+146
 
 </td>
 
 <td style="text-align:right;">
 
-141
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-33
+38
 
 </td>
 
@@ -405,6 +342,8 @@ E7.5
 </tbody>
 
 </table>
+
+Stage and Lineage seem to be asociated with each other.
 
 ## Results
 
@@ -416,22 +355,20 @@ Squares (SPWSS)
 
 <img src="README_figures/README-unnamed-chunk-3-1.png" width="1056" />
 
-  - RNA and Met promoter paltforms track close to each other, and are
-    also on top of rest of the platforms in terms of been informative
-    towards stage.
+  - RNA, Met promoter and Met cgi paltforms track close to each other,
+    and are also on top of rest of the platforms in terms of been
+    informative towards stage.
 
-  - acc platforms are not as informative of stage, acc\_DHS seemed to be
-    doing the best with AMI = 0.30. See circomaps below.
+  - Integration of all 5 platforms clearly outperforms rest of the
+    individual platforms
 
 #### Let’s take a look at RNA MOSAIC solution
-
-<img src="README_figures/README-unnamed-chunk-4-1.png" width="672" />
 
 <table>
 
 <caption>
 
-MOSAIC rna vs stage, AMI= 0.59
+MOSAIC rna vs stage, AMI= 0.4
 
 </caption>
 
@@ -483,7 +420,7 @@ E7.5
 
 <td style="text-align:right;">
 
-44
+63
 
 </td>
 
@@ -501,7 +438,7 @@ E7.5
 
 <td style="text-align:right;">
 
-2
+0
 
 </td>
 
@@ -523,19 +460,19 @@ E7.5
 
 <td style="text-align:right;">
 
-83
-
-</td>
-
-<td style="text-align:right;">
-
-8
-
-</td>
-
-<td style="text-align:right;">
-
 0
+
+</td>
+
+<td style="text-align:right;">
+
+34
+
+</td>
+
+<td style="text-align:right;">
+
+180
 
 </td>
 
@@ -557,19 +494,19 @@ E7.5
 
 <td style="text-align:right;">
 
-0
+3
 
 </td>
 
 <td style="text-align:right;">
 
-31
+213
 
 </td>
 
 <td style="text-align:right;">
 
-238
+96
 
 </td>
 
@@ -585,25 +522,25 @@ E7.5
 
 <td style="text-align:right;">
 
-59
-
-</td>
-
-<td style="text-align:right;">
-
 0
 
 </td>
 
 <td style="text-align:right;">
 
-0
+83
 
 </td>
 
 <td style="text-align:right;">
 
-0
+29
+
+</td>
+
+<td style="text-align:right;">
+
+63
 
 </td>
 
@@ -625,19 +562,19 @@ E7.5
 
 <td style="text-align:right;">
 
-1
+0
 
 </td>
 
 <td style="text-align:right;">
 
-186
+0
 
 </td>
 
 <td style="text-align:right;">
 
-102
+35
 
 </td>
 
@@ -651,7 +588,7 @@ E7.5
 
 <caption>
 
-MOSAIC rna vs lineage, AMI=0.54
+MOSAIC rna vs lineage, AMI=0.41
 
 </caption>
 
@@ -683,19 +620,7 @@ Epiblast
 
 <th style="text-align:right;">
 
-ExE\_ectoderm
-
-</th>
-
-<th style="text-align:right;">
-
 Mesoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Primitive\_endoderm
 
 </th>
 
@@ -727,31 +652,19 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-2
-
-</td>
-
-<td style="text-align:right;">
-
-1
-
-</td>
-
-<td style="text-align:right;">
-
 0
 
 </td>
 
 <td style="text-align:right;">
 
-0
+62
 
 </td>
 
 <td style="text-align:right;">
 
-43
+0
 
 </td>
 
@@ -779,19 +692,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-83
-
-</td>
-
-<td style="text-align:right;">
-
-8
+40
 
 </td>
 
@@ -803,13 +704,13 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
+162
 
 </td>
 
 <td style="text-align:right;">
 
-0
+11
 
 </td>
 
@@ -825,13 +726,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-79
+37
 
 </td>
 
@@ -843,25 +738,19 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
+211
 
 </td>
 
 <td style="text-align:right;">
 
-167
+3
 
 </td>
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-23
+60
 
 </td>
 
@@ -877,43 +766,31 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
+8
 
 </td>
 
 <td style="text-align:right;">
 
-0
+13
 
 </td>
 
 <td style="text-align:right;">
 
-59
+119
 
 </td>
 
 <td style="text-align:right;">
 
-0
+20
 
 </td>
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
+15
 
 </td>
 
@@ -929,7 +806,13 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-43
+0
+
+</td>
+
+<td style="text-align:right;">
+
+34
 
 </td>
 
@@ -941,31 +824,13 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-191
-
-</td>
-
-<td style="text-align:right;">
-
 0
 
 </td>
 
 <td style="text-align:right;">
 
-2
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-53
+1
 
 </td>
 
@@ -981,7 +846,7 @@ Primitive\_Streak
 
 <caption>
 
-kmeans rna vs stage, AMI= 0.42
+kmeans rna vs stage, AMI= 0.27
 
 </caption>
 
@@ -1033,25 +898,25 @@ E7.5
 
 <td style="text-align:right;">
 
-44
+1
 
 </td>
 
 <td style="text-align:right;">
 
-0
+18
 
 </td>
 
 <td style="text-align:right;">
 
-0
+126
 
 </td>
 
 <td style="text-align:right;">
 
-2
+63
 
 </td>
 
@@ -1073,19 +938,19 @@ E7.5
 
 <td style="text-align:right;">
 
-76
+0
 
 </td>
 
 <td style="text-align:right;">
 
-124
+116
 
 </td>
 
 <td style="text-align:right;">
 
-89
+48
 
 </td>
 
@@ -1101,25 +966,25 @@ E7.5
 
 <td style="text-align:right;">
 
-3
+62
 
 </td>
 
 <td style="text-align:right;">
 
-8
+68
 
 </td>
 
 <td style="text-align:right;">
 
-71
+15
 
 </td>
 
 <td style="text-align:right;">
 
-20
+55
 
 </td>
 
@@ -1135,12 +1000,6 @@ E7.5
 
 <td style="text-align:right;">
 
-56
-
-</td>
-
-<td style="text-align:right;">
-
 0
 
 </td>
@@ -1153,7 +1012,13 @@ E7.5
 
 <td style="text-align:right;">
 
-0
+19
+
+</td>
+
+<td style="text-align:right;">
+
+176
 
 </td>
 
@@ -1181,13 +1046,13 @@ E7.5
 
 <td style="text-align:right;">
 
-30
+0
 
 </td>
 
 <td style="text-align:right;">
 
-231
+32
 
 </td>
 
@@ -1201,7 +1066,7 @@ E7.5
 
 <caption>
 
-kmeans rna vs lineage, AMI=0.49
+kmeans rna vs lineage, AMI=0.32
 
 </caption>
 
@@ -1233,19 +1098,7 @@ Epiblast
 
 <th style="text-align:right;">
 
-ExE\_ectoderm
-
-</th>
-
-<th style="text-align:right;">
-
 Mesoderm
-
-</th>
-
-<th style="text-align:right;">
-
-Primitive\_endoderm
 
 </th>
 
@@ -1271,19 +1124,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-2
-
-</td>
-
-<td style="text-align:right;">
-
-1
+26
 
 </td>
 
@@ -1295,99 +1136,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-43
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-2
-
-</td>
-
-<td style="text-align:right;">
-
-42
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-216
-
-</td>
-
-<td style="text-align:right;">
-
-3
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-28
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-3
-
-</td>
-
-<td style="text-align:right;">
-
-1
-
-</td>
-
-<td style="text-align:right;">
-
-3
-
-</td>
-
-<td style="text-align:right;">
-
-61
+144
 
 </td>
 
@@ -1399,19 +1148,87 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
+32
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
 12
 
 </td>
 
 <td style="text-align:right;">
 
-0
+7
 
 </td>
 
 <td style="text-align:right;">
 
-20
+99
+
+</td>
+
+<td style="text-align:right;">
+
+14
+
+</td>
+
+<td style="text-align:right;">
+
+32
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+7
+
+</td>
+
+<td style="text-align:right;">
+
+14
+
+</td>
+
+<td style="text-align:right;">
+
+149
+
+</td>
+
+<td style="text-align:right;">
+
+17
+
+</td>
+
+<td style="text-align:right;">
+
+12
 
 </td>
 
@@ -1433,13 +1250,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-56
+34
 
 </td>
 
@@ -1451,19 +1262,13 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-0
+149
 
 </td>
 
 <td style="text-align:right;">
 
-0
-
-</td>
-
-<td style="text-align:right;">
-
-0
+11
 
 </td>
 
@@ -1485,7 +1290,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-76
+32
 
 </td>
 
@@ -1503,19 +1308,7 @@ Primitive\_Streak
 
 <td style="text-align:right;">
 
-157
-
-</td>
-
-<td style="text-align:right;">
-
 0
-
-</td>
-
-<td style="text-align:right;">
-
-28
 
 </td>
 
@@ -1525,27 +1318,31 @@ Primitive\_Streak
 
 </table>
 
+  - We see that supervised approach like MOSAIC leads to a higher AMI
+    with stage than kmeans.
+
+Let’s elaborate this via a t-SNE
+plot
+
+<img src="README_figures/README-unnamed-chunk-6-1.png" width="768" /><img src="README_figures/README-unnamed-chunk-6-2.png" width="768" />
+
+A slightly better classification via MOSAIC is evident from the tSNE
+plot, this is also reflective in their respective AMIs
+
 #### Other MOSAIC solutions
 
 Make a *circomap* of remaining subtypes, and stage and lineage
 classification
 
-<img src="README_figures/README-unnamed-chunk-6-1.png" width="672" /><img src="README_figures/README-unnamed-chunk-6-2.png" width="672" />
+<img src="README_figures/README-unnamed-chunk-7-1.png" width="768" />
 
 ### Integrated solution
-
-Will add 07/10
-
-### Met promoter vs RNA
-
-Let’s take a look at the two platforms, RNA and Met promoter that are
-most informative for stage.
 
 <table>
 
 <caption>
 
-Met promoter vs stage, AMI=0.53
+integrated vs stage, AMI= 0.68
 
 </caption>
 
@@ -1603,19 +1400,19 @@ E7.5
 
 <td style="text-align:right;">
 
+83
+
+</td>
+
+<td style="text-align:right;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
 0
-
-</td>
-
-<td style="text-align:right;">
-
-29
-
-</td>
-
-<td style="text-align:right;">
-
-208
 
 </td>
 
@@ -1631,25 +1428,25 @@ E7.5
 
 <td style="text-align:right;">
 
+62
+
+</td>
+
+<td style="text-align:right;">
+
 0
 
 </td>
 
 <td style="text-align:right;">
 
-26
+0
 
 </td>
 
 <td style="text-align:right;">
 
-188
-
-</td>
-
-<td style="text-align:right;">
-
-129
+0
 
 </td>
 
@@ -1665,7 +1462,7 @@ E7.5
 
 <td style="text-align:right;">
 
-103
+0
 
 </td>
 
@@ -1677,13 +1474,13 @@ E7.5
 
 <td style="text-align:right;">
 
-1
+2
 
 </td>
 
 <td style="text-align:right;">
 
-0
+258
 
 </td>
 
@@ -1705,7 +1502,13 @@ E7.5
 
 <td style="text-align:right;">
 
-58
+2
+
+</td>
+
+<td style="text-align:right;">
+
+255
 
 </td>
 
@@ -1715,9 +1518,495 @@ E7.5
 
 </td>
 
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+14
+
+</td>
+
+<td style="text-align:right;">
+
+109
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
+
+integrated vs lineage, AMI=0.22
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+Ectoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Endoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Epiblast
+
+</th>
+
+<th style="text-align:right;">
+
+Mesoderm
+
+</th>
+
+<th style="text-align:right;">
+
+Primitive\_Streak
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+87
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+62
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+26
+
+</td>
+
+<td style="text-align:right;">
+
+64
+
+</td>
+
+<td style="text-align:right;">
+
+37
+
+</td>
+
+<td style="text-align:right;">
+
+102
+
+</td>
+
+<td style="text-align:right;">
+
+31
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+180
+
+</td>
+
+<td style="text-align:right;">
+
+35
+
+</td>
+
+<td style="text-align:right;">
+
+46
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+5
+
+</td>
+
+<td style="text-align:right;">
+
+18
+
+</td>
+
+<td style="text-align:right;">
+
+22
+
+</td>
+
+<td style="text-align:right;">
+
+26
+
+</td>
+
+<td style="text-align:right;">
+
+48
+
+</td>
+
+<td style="text-align:right;">
+
+9
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+t-SNE plot of integrated
+    solution
+
+    ## Warning in cmdscale(cc, nrow(cc) - 1): only 697 of the first 798 eigenvalues are
+    ## > 0
+
+<img src="README_figures/README-unnamed-chunk-9-1.png" width="768" />
+
+Clearly integration makes a huge difference in classifying stage,
+showing that information is borrowed across difeerent platforms.
+
+### Met promoter vs RNA
+
+Let’s take a look at the two platforms, RNA and Met promoter that are
+most informative for stage.
+
+<table>
+
+<caption>
+
+Met promoter vs stage, AMI=0.45
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+</th>
+
+<th style="text-align:right;">
+
+E4.5
+
+</th>
+
+<th style="text-align:right;">
+
+E5.5
+
+</th>
+
+<th style="text-align:right;">
+
+E6.5
+
+</th>
+
+<th style="text-align:right;">
+
+E7.5
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+62
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+2
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+67
+
+</td>
+
 <td style="text-align:right;">
 
 5
+
+</td>
+
+<td style="text-align:right;">
+
+7
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
+70
+
+</td>
+
+<td style="text-align:right;">
+
+236
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+4
+
+</td>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:right;">
+
+19
+
+</td>
+
+<td style="text-align:right;">
+
+201
+
+</td>
+
+<td style="text-align:right;">
+
+131
 
 </td>
 
@@ -1733,7 +2022,7 @@ Let’s see how this looks with RNA solution
 
 <caption>
 
-Met promoter vs RNA, AMI=0.45
+Met promoter vs RNA, AMI=0.27
 
 </caption>
 
@@ -1791,6 +2080,18 @@ Met promoter vs RNA, AMI=0.45
 
 <td style="text-align:right;">
 
+62
+
+</td>
+
+<td style="text-align:right;">
+
+0
+
+</td>
+
+<td style="text-align:right;">
+
 0
 
 </td>
@@ -1803,19 +2104,7 @@ Met promoter vs RNA, AMI=0.45
 
 <td style="text-align:right;">
 
-140
-
-</td>
-
-<td style="text-align:right;">
-
 0
-
-</td>
-
-<td style="text-align:right;">
-
-97
 
 </td>
 
@@ -1837,25 +2126,25 @@ Met promoter vs RNA, AMI=0.45
 
 <td style="text-align:right;">
 
-25
+6
 
 </td>
 
 <td style="text-align:right;">
 
-126
+5
+
+</td>
+
+<td style="text-align:right;">
+
+68
 
 </td>
 
 <td style="text-align:right;">
 
 0
-
-</td>
-
-<td style="text-align:right;">
-
-192
 
 </td>
 
@@ -1871,31 +2160,31 @@ Met promoter vs RNA, AMI=0.45
 
 <td style="text-align:right;">
 
+0
+
+</td>
+
+<td style="text-align:right;">
+
+119
+
+</td>
+
+<td style="text-align:right;">
+
+131
+
+</td>
+
+<td style="text-align:right;">
+
 44
 
 </td>
 
 <td style="text-align:right;">
 
-1
-
-</td>
-
-<td style="text-align:right;">
-
-0
-
-</td>
-
-<td style="text-align:right;">
-
-59
-
-</td>
-
-<td style="text-align:right;">
-
-0
+12
 
 </td>
 
@@ -1911,31 +2200,31 @@ Met promoter vs RNA, AMI=0.45
 
 <td style="text-align:right;">
 
-2
+1
 
 </td>
 
 <td style="text-align:right;">
 
-65
+89
 
 </td>
 
 <td style="text-align:right;">
 
-3
+176
 
 </td>
 
 <td style="text-align:right;">
 
-0
+63
 
 </td>
 
 <td style="text-align:right;">
 
-0
+23
 
 </td>
 
@@ -1946,9 +2235,9 @@ Met promoter vs RNA, AMI=0.45
 </table>
 
 Interesting to see that even though individual RNA MSOAIC solution (k=5)
-and Met promoter (k=4) are both informative towards stage with AMI 0.59
-and 0.53 respectively, they are conveying slightly different underlying
-information classifying stage. AMI RNA with Met promoter 0.45
+and Met promoter (k=4) are both informative towards stage with AMI 0.4
+and 0.45 respectively, they are conveying slightly different underlying
+information classifying stage. AMI RNA with Met promoter 0.27
 
 Note, that due to missing-ness in Met Promoter data, we didn’t perform
 an overlap between common features between RNA and Met Promoter .
